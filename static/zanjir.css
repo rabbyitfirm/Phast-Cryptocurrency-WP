@@ -1,0 +1,124 @@
+.lds-dual-ring,
+.lds-dual-ring:after {
+  box-sizing: border-box;
+}
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6.4px solid currentColor;
+  border-color: currentColor transparent currentColor transparent;
+  animation: lds-dual-ring 3s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.zanjir_loader {
+    width: 100% !important;
+    text-align: center !important;
+    margin-bottom: 1rem !important;
+}
+
+.zanjir_loader > div {
+    width: 100px !important;
+    margin: 0 auto !important;
+}
+
+.zanjir_check {
+    width: 100% !important;
+    text-align: center !important;
+    display: none;
+}
+
+.zanjir_check img {
+    margin: 0 auto !important;
+    width: 200px !important;
+}
+
+.payment_details {
+    width: 100% !important;
+    text-align: center !important;
+}
+
+.payment_details .qrcode_wrapper {
+    text-align: center !important;
+    margin: 1em auto !important;
+    position: relative !important;
+    display: inline-block !important;
+}
+
+.payment_details .qrcode_wrapper img {
+    display: inline-block !important;
+    border: 1px #686868 solid;
+    border-radius: 0.4em;
+    padding: 0.2em;
+    background: #fff;
+}
+
+.payment_details .qrcode_wrapper .inner-wrapper {
+    z-index: 3 !important;
+    position: relative !important;
+}
+
+.payment_details .qrcode_wrapper .cryptapi_branding {
+    font-size: 11px;
+    font-family: "roboto", sans-serif;
+    color: #666;
+    position: absolute;
+    bottom: -15px;
+    right: 0;
+    background: #ddd;
+    padding: 20px 5px 2px 5px;
+    border-radius: 0.4em;
+    z-index: 2;
+    border: 1px #777 solid;
+}
+
+.payment_details .qrcode_wrapper:before {
+    content: "clickable on mobile devices";
+    font-size: 13px;
+    font-family: "roboto", sans-serif;
+    color: #666;
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    background: #f6f6f6;
+    border-radius: 0.4em;
+    border: 1px #888 solid;
+    padding: 18px 1px 1px 1px;
+    z-index: 1;
+}
+
+.payment_details .details_box {
+    width: 100%;
+    margin: 3em auto;
+    text-align: center;
+}
+
+.payment_pending {
+    width: 100%;
+    text-align: center;
+    display: none;
+}
+
+.payment_complete {
+    width: 100%;
+    text-align: center;
+    display: none;
+}
