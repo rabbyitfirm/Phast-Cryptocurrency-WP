@@ -1,0 +1,64 @@
+{
+    "packages": [
+        {
+            "name": "zanjir/zanjir-php",
+            "version": "v1.0.0",
+            "version_normalized": "1.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Zanjir/Zanjir-php.git",
+                "reference": "19d38accdb72b6487ae7b004b6ecf48b5a1f5902"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Zanjir/Zanjir-php/zipball/19d38accdb72b6487ae7b004b6ecf48b5a1f5902",
+                "reference": "19d38accdb72b6487ae7b004b6ecf48b5a1f5902",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.5.0"
+            },
+            "time": "2021-12-09T15:37:54+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Zanjir\\": "Zanjir/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Zanjir Network",
+                    "email": "info@zanjir.network"
+                }
+            ],
+            "description": "Zanjir php",
+            "homepage": "https://github.com/Zanjir/Zanjir-php",
+            "keywords": [
+                "USDT",
+                "Zanjir",
+                "bitcoin",
+                "crypto",
+                "cryptocurrencies",
+                "dash",
+                "ethereum",
+                "litecoin",
+                "payments",
+                "tron"
+            ],
+            "support": {
+                "issues": "https://github.com/Zanjir/Zanjir-php/issues",
+                "source": "https://github.com/Zanjir/Zanjir-php/tree/v1.0.0"
+            },
+            "install-path": "../zanjir/zanjir-php"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

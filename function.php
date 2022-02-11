@@ -36,7 +36,7 @@ class WC_Zanjir_Gateway extends WC_Payment_Gateway
     }
 
     function coin_supported() {
-        $coin_list = (new Zanjir)->coin_list();
+        $coin_list = (new Zanjir\Zanjir)->coin_list();
         foreach ($coin_list as $proto) {
             foreach($proto as $ticker=>$value){
                 $coins[$ticker] = $value->title;
@@ -131,7 +131,7 @@ class WC_Zanjir_Gateway extends WC_Payment_Gateway
     function payment_fields()
         { ?>
         <div class="form-row form-row-wide">
-            <p><?php echo $this->description; ?></p>
+            <p><?php esc_html_e($this->description,'Zanjir'); ?></p>
             <ul style="list-style: none outside;">
                 <?php
         if (!empty($this->coins) && is_array($this->coins)) {
@@ -139,9 +139,9 @@ class WC_Zanjir_Gateway extends WC_Payment_Gateway
                 $wallet_address = $this->{$ticker . '_address'};
                 if (!empty($wallet_address)) { ?>
                             <li>
-                                <input id="payment_method_<?php echo $ticker ?>" type="radio" class="input-radio"
-                                       name="Zanjir_coin" value="<?php echo $ticker ?>"/>
-                                <label for="payment_method_<?php echo $ticker ?>" style="display: inline-block;"><?php echo __('Pay with', 'Zanjir') . ' ' . WC_Zanjir_Gateway::$COIN_SUPPORTED[$ticker]; ?></label>
+                                <input id="payment_method_<?php  esc_html_e($ticker,'Zanjir'); ?>" type="radio" class="input-radio"
+                                       name="Zanjir_coin" value="<?php esc_html_e($ticker,'Zanjir'); ?>"/>
+                                <label for="payment_method_<?php esc_html_e($ticker,'Zanjir'); ?>" style="display: inline-block;"><?php  esc_html_e('Pay with ' . WC_Zanjir_Gateway::$COIN_SUPPORTED[$ticker] , 'Zanjir'); ?></label>
                             </li>
                             <?php
                 }
@@ -178,14 +178,14 @@ class WC_Zanjir_Gateway extends WC_Payment_Gateway
                 }
                 $params["callback"] = $callback_url;
 
-                $zanjir = (new Zanjir)->create($params);
+                $zanjir = (new Zanjir\Zanjir)->create($params);
 
                 if($zanjir->status != 1000){
-                    wc_add_notice(__("Payment error:", 'Zanjir') . "Error : " . (new Zanjir)->error_dictionary($zanjir->status), 'error');
+                    wc_add_notice(__("Payment error: " . (new Zanjir\Zanjir)->error_dictionary($zanjir->status), 'Zanjir'), 'error');
                     return null;
                 }
 
-                $qr_code_data = (new Zanjir)->qrcode_base64($zanjir->in_wallet,$zanjir->amount);
+                $qr_code_data = (new Zanjir\Zanjir)->qrcode_base64($zanjir->in_wallet,$zanjir->amount);
                 $order->add_meta_data('zanjir_nonce', $zanjir->nonce);
                 $order->add_meta_data('zanjir_adminwallet', $wallet_address);
                 $order->add_meta_data('zanjir_address', $zanjir->in_wallet);
@@ -196,7 +196,7 @@ class WC_Zanjir_Gateway extends WC_Payment_Gateway
                 $order->add_meta_data('zanjir_qr_code', $qr_code_data);
                 $order->save_meta_data();
 
-                $order->update_status('on-hold', __('Awaiting payment', 'Zanjir') . ': ' . WC_Zanjir_Gateway::$COIN_SUPPORTED[$zanjir->ticker]);
+                $order->update_status('on-hold', __('Awaiting payment: ' . WC_Zanjir_Gateway::$COIN_SUPPORTED[$zanjir->ticker], 'Zanjir'));
                 $woocommerce->cart->empty_cart();
 
                 return array(
@@ -205,7 +205,7 @@ class WC_Zanjir_Gateway extends WC_Payment_Gateway
                 );
 
             } catch (Exception $e) {
-                wc_add_notice(__("Payment error:", 'Zanjir') . 'Unknown coin', 'error');
+                wc_add_notice(__("Payment error: Unknown coin", 'Zanjir'), 'error');
                 return null;
             }
         }
@@ -227,8 +227,6 @@ class WC_Zanjir_Gateway extends WC_Payment_Gateway
         $zanjir_ticker = $order->get_meta('zanjir_ticker');
         $zanjir_title = $order->get_meta('zanjir_title');
         $qr_code_base64 = $order->get_meta('zanjir_qr_code');
-        
-
         $zanjir_amount_fiat = $order->get_meta('zanjir_amount_fiat');
 
 
@@ -257,42 +255,47 @@ class WC_Zanjir_Gateway extends WC_Payment_Gateway
                 </div>
             </div>
             <div class="zanjir_check">
-                <img src="<?php echo ZANJIR_PLUGIN_URL . 'static/success.png' ?>"/>
+                <img src="<?php esc_html_e(ZANJIR_PLUGIN_URL . 'static/success.png','Zanjir');  ?>"/>
             </div>
             <div class="payment_details">
-                <h4><?php echo __('Waiting for payment', 'Zanjir') ?></h4>
+                <h4><?php  _e('Waiting for payment', 'Zanjir') ?></h4>
                 <div class="qrcode_wrapper">
                     <div class="inner-wrapper">
-                            <img src="<?php echo $qr_code_base64; ?>" />
+                            <img src="<?php esc_html_e($qr_code_base64,'Zanjir'); ?>" />
                     </div>
 
                 </div>
                 <div class="details_box">
-                    <?php echo __('In order to confirm your order, please send', 'Zanjir') ?>
-                    <span><b><?php echo $zanjir_amount ?></b></span>
-                    <span><b><?php echo strtoupper($zanjir_title) ?></b></span>
-                    <?php if($this->exchange){echo "({$currency_symbol}{$zanjir_amount_fiat})";} ?>
-                    <?php echo __('to', 'Zanjir') ?>
-                    <span><b><?php echo $zanjir_address ?></b></span>
+                    <?php  _e('In order to confirm your order, please send', 'Zanjir') ?>
+                    <span><b><?php esc_html_e($zanjir_amount,'Zanjir'); ?></b></span>
+                    <span><b><?php strtoupper(esc_html_e($zanjir_title,'Zanjir')); ?></b></span>
+                    <?php if($this->exchange){esc_html_e("({$currency_symbol}{$zanjir_amount_fiat})",'Zanjir');} ?>
+                    <?php  _e('to', 'Zanjir') ?>
+                    <span><b><?php esc_html_e($zanjir_address,'Zanjir'); ?></b></span>
                 </div>
             </div>
             <div class="payment_complete">
-                <h4><?php echo __('Your payment has been confirmed!', 'Zanjir') ?></h4>
+                <h4><?php  _e('Your payment has been confirmed!', 'Zanjir') ?></h4>
             </div>
         </div>
         <?php
     }
 
     function process_callback()
-    {
-    echo get_woocommerce_currency();
-        $order = new WC_Order($_GET['order_id']);
-        if ($order->is_paid() || $_POST['nonce'] != $order->get_meta('zanjir_nonce')) die("Error");
-        if ($_POST['amount'] >= $order->get_meta('zanjir_amount')) {
-            $zanjir = (new Zanjir)->logs($_POST['in_wallet']);
+    {    
+        $input_order_id = sanitize_text_field($_GET['order_id']);
+        $input_nonce = sanitize_text_field($_POST['nonce']);
+        $input_amount = sanitize_text_field($_POST['amount']);
+        $input_in_wallet = sanitize_text_field($_POST['in_wallet']);
+        $input_txid = sanitize_text_field($_POST['txid']);
+        
+        $order = new WC_Order($input_order_id);
+        if ($order->is_paid() || $input_nonce != $order->get_meta('zanjir_nonce')) die("Error");
+        if ($input_amount >= $order->get_meta('zanjir_amount')) {
+            $zanjir = (new Zanjir\Zanjir)->logs($input_in_wallet);
             if($zanjir->confirmations){
-            $order->payment_complete($_POST['in_wallet']);
-            $order->add_order_note("TxID : " . $_POST['txid']);
+            $order->payment_complete($input_in_wallet);
+            $order->add_order_note("TxID : " . $input_txid);
             $order->add_meta_data('fee', $zanjir->fee);
             $order->save_meta_data();
             }
@@ -309,13 +312,13 @@ class WC_Zanjir_Gateway extends WC_Payment_Gateway
             $data = [
             'is_paid' => $order->is_paid(),
             ];
-            echo json_encode($data);
+            _e(json_encode($data),'Zanjir');
             die();
 
         } catch (Exception $e) {
-           echo json_encode(['status' => 'error', 'error' => 'error']);
+           _e(json_encode(['status' => 'error', 'error' => 'error'],'Zanjir'));
         }
-        echo json_encode(['status' => 'error', 'error' => 'not a valid order_id']);
+        _e(json_encode(['status' => 'error', 'error' => 'not a valid order_id']),'Zanjir');
         die();
     }
 }

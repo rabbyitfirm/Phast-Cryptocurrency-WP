@@ -1,7 +1,16 @@
 <?php
+//////////////////////////
+/// We suggest that you read the Zanjir Document before using this library
+/// https://github.com/Zanjir/API-Documentation/blob/main/Documentation.md
+/// Author : Zanjir Network
+/// Website : https://zanjir.network
+/////////////////////////
+namespace Zanjir;
+
 class Zanjir {
+
     private static $zanjir_api_url = "https://api.zanjir.network/";
-    
+
     public function create($params) {
         return Zanjir::_curl("create",$params,"POST");
     }
@@ -71,4 +80,3 @@ class Zanjir {
     }
 
 }
-?>

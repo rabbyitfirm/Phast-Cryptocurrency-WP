@@ -1,12 +1,12 @@
 === Zanjir Payment Gateway for WooCommerce ===
 Contributors: zanjir
 Tags: crypto payments, woocommerce, crypto, payment, pay with crypto, bitcoin, bnb, usdt, litecoin ,payment gateway,tron
-Requires at least: 4.0
-Tested up to: 5.4
-Stable tag: 1.0.0
-Requires PHP: 5.5
-WC requires at least: 2.4
-WC tested up to: 5.6
+Requires at least: 5.9
+Tested up to: 5.9
+Stable tag: 1.0.1
+Requires PHP: 7
+WC requires at least: 6
+WC tested up to: 6
 License: MIT
 
 Accept cryptocurrency payments on your WooCommerce website
