@@ -125,8 +125,8 @@ The easiest and fastest way is via our live chat on our [website](https://zanjir
 == Screenshots ==
 
 1. The settings panel used to configure the gateway.
-2. Normal checkout with Zanjir.
-3. Standard payment page with QR-Code.
+2. The settings panel used to configure the gateway (wallet input).
+3. Normal checkout with Zanjir.
 4. Awaiting payment confirmation
 5. Payment confirmed
 
@@ -135,6 +135,8 @@ The easiest and fastest way is via our live chat on our [website](https://zanjir
 = 1.0 =
 * Initial release.
 
+= 1.0.1 =
+* fix some minor bugs
 
 
 == Upgrade Notice ==
