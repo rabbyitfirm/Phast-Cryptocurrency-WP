@@ -18,7 +18,7 @@ function check_status(ajax_url) {
             }
         });
 
-        setTimeout(status_loop, 5000);
+        setTimeout(status_loop, 10000);
     }
 
     status_loop();

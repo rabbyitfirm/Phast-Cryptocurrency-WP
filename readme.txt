@@ -3,7 +3,7 @@ Contributors: zanjir
 Tags: crypto payments, woocommerce, crypto, payment, pay with crypto, bitcoin, bnb, usdt, litecoin ,payment gateway,tron
 Requires at least: 5.9
 Tested up to: 5.9
-Stable tag: 1.0.1
+Stable tag: 1.0.3
 Requires PHP: 7
 WC requires at least: 6
 WC tested up to: 6
@@ -138,6 +138,11 @@ The easiest and fastest way is via our live chat on our [website](https://zanjir
 = 1.0.1 =
 * fix some minor bugs
 
+= 1.0.2 =
+* fix some minor bugs
+
+= 1.0.3 =
+* refactoring to new API structure
 
 == Upgrade Notice ==
 * No breaking changes

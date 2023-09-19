@@ -5,7 +5,7 @@ require_once 'define.php';
 Plugin Name: Zanjir Cryptocurrency Payment Gateway for WooCommerce
 Plugin URI: https://Zanjir.network/
 Description: Accept cryptocurrency on your website.Forget all about lengthy sign-ups, applying for merchant accounts and being restricted to one cryptocurrency.
-Version: 1.0.1
+Version: 1.0.3
 Author: Zanjir Network
 Author URI: https://zanjir.network/
 License: GPLv2 or later

@@ -7,41 +7,39 @@
 /////////////////////////
 namespace Zanjir;
 
+define("ZANJIR_API_URL", "https://gate.zanjir.network/api/");
 class Zanjir {
 
-    private static $zanjir_api_url = "https://api.zanjir.network/";
-
-    public function create($params) {
-        return Zanjir::_curl("create",$params,"POST");
+    public function create(Array $params) {
+        $result = Zanjir::_curl("create",$params,"POST");
+        return json_decode($result);
     }
 
-    public function logs($in_wallet) {
-        return Zanjir::_curl("logs",$in_wallet,'GET');
+    public function verify(String $id) {
+        $result = Zanjir::_curl("verify",$id,'GET');
+        return json_decode($result);
     }
 
-    public function qrcode($params_in_wallet,$amount) {
-        $params = $params_in_wallet . "/" . $amount;
-        return Zanjir::$zanjir_api_url."qrcode/".$params;
+    public function qrCodeBase64($in_wallet,$amount,$size=250) {
+        $params = "$in_wallet/$amount/$size";
+        return Zanjir::_curl("qr/base64",$params,'GET');
     }
-    
-    public function qrcode_base64($params_in_wallet,$amount) {
-        return 'data:image/gif;base64,' . base64_encode(file_get_contents(Zanjir::qrcode($params_in_wallet,$amount)));
-    }
-    
+
     public function coin_list() {
-        return  Zanjir::_curl("coin/list",NULL,'GET');
+        $result = Zanjir::_curl("tickers",NULL,'GET');
+        return json_decode($result);
     }
 
     public function ticker_info($ticker) {
         $coinlists =   Zanjir::coin_list();
-        foreach($coinlists as $key => $value){
-            if(isset($value->$ticker)){
-                return $value->$ticker;
+        foreach($coinlists as $coin){
+            if($coin->name == strtolower($ticker)){
+                return $coin;
             }
         }
     }
     public function error_dictionary($error_code){
-        $code[1001] = "The amount is less than the allowable limit";
+        $code[1001] = "Your invoice amount is less than the allowed amount of this cryptocurrency. Please change your cryptocurrency.";
         $code[1002] = "Your wallet address structure is invalid or does not support Zanjir.";
         $code[1003] = "Callback url is invalid.";
         $code[1004] = "Ticker is invalid.";
@@ -53,7 +51,7 @@ class Zanjir {
     }
     private static function _curl($endpoint, $params,$method = "POST") {
         $curl = curl_init();
-        $CURLOPT_URL = Zanjir::$zanjir_api_url . $endpoint .'/';
+        $CURLOPT_URL = ZANJIR_API_URL . $endpoint .'/';
         if($method == "GET"){
             $CURLOPT_URL = $CURLOPT_URL .  $params;
             $http_build_query = NULL;
@@ -76,7 +74,8 @@ class Zanjir {
             ));
         $response = curl_exec($curl);
         curl_close($curl);
-        return json_decode($response);
+        return ($response);
     }
+
 
 }
